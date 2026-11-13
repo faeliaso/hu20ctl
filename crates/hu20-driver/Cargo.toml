@@ -1,0 +1,16 @@
+[package]
+name = "hu20-driver"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+clap.workspace = true
+hu20-core = { path = "../hu20-core" }
+secugen-hu20-rs.workspace = true
+rusb.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+proptest.workspace = true

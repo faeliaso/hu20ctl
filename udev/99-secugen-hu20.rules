@@ -1,0 +1,2 @@
+# SecuGen Hamster Pro 20 (HU20) USB Fingerprint Scanner
+SUBSYSTEM=="usb", ATTR{idVendor}=="1162", ATTR{idProduct}=="2200", MODE="0666", GROUP="plugdev", TAG+="uaccess"

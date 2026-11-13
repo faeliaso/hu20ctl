@@ -1,0 +1,17 @@
+# Build and OS
+/target/
+.DS_Store
+.npp-md-preview.html
+
+# Bloqueio rigoroso de dados biométricos locais e manifestos:
+# Qualquer imagem PNG ou manifesto .meta.json gerado localmente é ignorado por padrão,
+# exceto os fixtures sintéticos autorizados e determinísticos em tests/fixtures.
+*.png
+*.meta.json
+
+!tests/fixtures/*.png
+!tests/fixtures/*.meta.json
+
+# Diretórios temporários de teste físico / scripts locais
+*hu20-physical*
+/output/

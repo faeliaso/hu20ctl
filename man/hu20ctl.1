@@ -1,0 +1,45 @@
+.TH HU20CTL 1 "November 2026" "hu20ctl 0.2.0" "User Commands"
+.SH NAME
+hu20ctl \- technical control CLI and capture daemon for SecuGen Hamster Pro 20 (HU20)
+.SH SYNOPSIS
+.B hu20ctl
+[\fIGLOBAL_OPTIONS\fR]
+.I COMMAND
+[\fIARGUMENTS...\fR]
+.SH DESCRIPTION
+.B hu20ctl
+is a pure-Rust command-line tool and background daemon for technical and forensic
+operations on the SecuGen Hamster Pro 20 (HU20) optical fingerprint scanner
+(USB 1162:2200, 300x400 L8 @ 500 DPI, 120,000 bytes).
+.SH COMMANDS
+.TP
+.B doctor
+Run hardware, udev, permission, and daemon diagnostics.
+.TP
+.B list
+List connected SecuGen HU20 scanners on the USB bus.
+.TP
+.B capture
+Acquire a fingerprint frame and write PNG, TIFF, PGM, RAW, WSQ, JP2, JPEG, or BMP.
+.TP
+.B enroll
+Acquire multiple samples and produce a deterministic enrollment template.
+.TP
+.B verify
+Verify a probe image/template against a reference image/template (1:1 or 1:N).
+.TP
+.B daemon
+Run the exclusive-access Unix Domain Socket capture daemon.
+.TP
+.B tool
+Offline utilities: \fBbench\fR, \fBconvert\fR, \fBenhance\fR.
+.SH ENVIRONMENT
+.TP
+.B HU20_MOCK_FIXTURE
+Select a mock scenario (\fBmatch\fR, \fBmismatch\fR, \fBdegraded\fR, \fBempty\fR, \fBdisconnect\fR).
+.TP
+.B HU20_SOCKET_PATH
+Override the Unix Domain Socket path (default: \fI/run/hu20/hu20.sock\fR on Linux, \fI/tmp/hu20.sock\fR on macOS).
+.SH SEE ALSO
+.BR udev (7),
+.BR systemd (1)

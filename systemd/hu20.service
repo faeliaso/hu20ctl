@@ -1,0 +1,17 @@
+[Unit]
+Description=SecuGen HU20 Fingerprint Capture Daemon
+Requires=hu20.socket
+After=hu20.socket
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/hu20ctl daemon --socket /run/hu20/hu20.sock
+Restart=on-failure
+RestartSec=3
+User=root
+Group=plugdev
+RuntimeDirectory=hu20
+RuntimeDirectoryMode=0755
+
+[Install]
+WantedBy=multi-user.target

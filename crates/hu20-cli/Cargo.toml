@@ -1,0 +1,49 @@
+[package]
+name = "hu20-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "hu20ctl"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+base64.workspace = true
+clap.workspace = true
+hu20-core = { path = "../hu20-core" }
+hu20-driver = { path = "../hu20-driver" }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber = { workspace = true }
+
+[dev-dependencies]
+tempfile.workspace = true
+
+[[test]]
+name = "cli_tests"
+path = "../../tests/cli_tests.rs"
+
+[[test]]
+name = "daemon_tests"
+path = "../../tests/daemon_tests.rs"
+
+[package.metadata.deb]
+maintainer = "hu20ctl Developers <developers@hu20ctl.org>"
+copyright = "2026, hu20ctl Contributors"
+extended-description = """\
+SecuGen Hamster Pro 20 (HU20) technical control CLI and capture daemon service."""
+section = "utils"
+priority = "optional"
+assets = [
+    ["target/release/hu20ctl", "usr/bin/hu20ctl", "755"],
+    ["../../man/hu20ctl.1", "usr/share/man/man1/hu20ctl.1", "644"],
+    ["../../udev/99-secugen-hu20.rules", "lib/udev/rules.d/99-secugen-hu20.rules", "644"],
+    ["../../systemd/hu20.service", "lib/systemd/system/hu20.service", "644"],
+    ["../../systemd/hu20.socket", "lib/systemd/system/hu20.socket", "644"],
+]
+maintainer-scripts = "../../debian"
