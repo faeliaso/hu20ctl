@@ -60,12 +60,35 @@
 - **Hardware:** SecuGen Hamster Pro 20 (HU20), USB `VID 0x1162`, `PID 0x2200` (`300×400` L8 @ `500 DPI`).
 - **Toolchain:** Rust `stable` (`cargo`, `rustc`).
 - **OS Permissions:**
-  - **Linux:** Install the provided `udev/60-hu20.rules` rule so non-root users can access the USB device.
+  - **Linux:** Install the provided `udev/99-secugen-hu20.rules` rule so non-root users can access the USB device.
   - **macOS:** Uses `rusb` / `libusb` user-space USB access.
 
 ## Installation
 
-Build from source:
+### macOS with Homebrew
+
+```sh
+brew install faeliaso/tap/hu20ctl
+```
+
+### Linux release installer
+
+The installer supports `x86_64` and `aarch64`. It downloads the latest GitHub release, verifies its checksum, installs the binary, and configures the SecuGen HU20 udev rules and systemd units. It requires `curl`, `tar`, `sha256sum`, `udevadm`, and administrator privileges.
+
+```sh
+curl -fLO https://raw.githubusercontent.com/faeliaso/hu20ctl/main/scripts/install.sh
+sudo bash install.sh
+```
+
+### Debian / Ubuntu (`.deb`)
+
+Download the `.deb` asset from the [GitHub Releases](https://github.com/faeliaso/hu20ctl/releases) page and install it:
+
+```sh
+sudo apt install ./hu20ctl-v<VERSION>-x86_64-unknown-linux-gnu.deb
+```
+
+### Build from source
 
 ```sh
 cargo build --release --workspace
