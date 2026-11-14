@@ -11,6 +11,7 @@
 
 !tests/fixtures/*.png
 !tests/fixtures/*.meta.json
+!assets/*.png
 
 # Diretórios temporários de teste físico / scripts locais
 *hu20-physical*
