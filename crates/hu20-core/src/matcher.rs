@@ -111,7 +111,11 @@ fn build_segments(minutiae: &[Minutia]) -> Vec<Segment> {
             });
         }
     }
-    segs.sort_by(|a, b| a.len.partial_cmp(&b.len).unwrap_or(std::cmp::Ordering::Equal));
+    segs.sort_by(|a, b| {
+        a.len
+            .partial_cmp(&b.len)
+            .unwrap_or(std::cmp::Ordering::Equal)
+    });
     segs
 }
 
@@ -160,7 +164,9 @@ fn match_minutiae_pairs_with_error(
                     return None;
                 }
                 let d2 = (a.x - b.x).powi(2) + (a.y - b.y).powi(2);
-                if d2 <= r2_limit && angle_distance(a.angle_deg, b.angle_deg) <= TOLERANCE_BOX_ANGLE_DEG {
+                if d2 <= r2_limit
+                    && angle_distance(a.angle_deg, b.angle_deg) <= TOLERANCE_BOX_ANGLE_DEG
+                {
                     // Prefer same-kind matches, while tolerating RidgeEnding<->Bifurcation
                     // flips caused by finger pressure differences on optical sensors.
                     let kind_penalty = if a.kind == b.kind { 0.0 } else { 16.0 };
@@ -321,11 +327,9 @@ fn evaluate_alignment_hypotheses(
                 (ty / 12.0).round() as i32,
                 (dtheta_deg / 10.0).round() as i32,
             );
-            bins.entry(bin_key).or_default().push(RawPose {
-                dtheta_deg,
-                tx,
-                ty,
-            });
+            bins.entry(bin_key)
+                .or_default()
+                .push(RawPose { dtheta_deg, tx, ty });
         }
     }
 
@@ -352,10 +356,11 @@ fn evaluate_alignment_hypotheses(
     }
 
     hypotheses.sort_by(|a, b| {
-        b.pairs
-            .len()
-            .cmp(&a.pairs.len())
-            .then_with(|| a.mean_dist.partial_cmp(&b.mean_dist).unwrap_or(std::cmp::Ordering::Equal))
+        b.pairs.len().cmp(&a.pairs.len()).then_with(|| {
+            a.mean_dist
+                .partial_cmp(&b.mean_dist)
+                .unwrap_or(std::cmp::Ordering::Equal)
+        })
     });
     hypotheses
 }
@@ -477,7 +482,9 @@ pub fn compare_minutiae_sets(p: &[Minutia], r: &[Minutia]) -> MatchReport {
         ));
     }
     if consistency_ratio < MIN_CONSISTENCY_RATIO {
-        warnings.push("inconsistent geometric alignment across pose clusters; possible impostor".into());
+        warnings.push(
+            "inconsistent geometric alignment across pose clusters; possible impostor".into(),
+        );
     }
     if !deformation_valid {
         raw_score *= 0.25;
@@ -814,7 +821,11 @@ mod tests {
             "impostor must be rejected: score={}, matched={}, consistency={}",
             report.score, report.matched_minutiae, report.consistency_ratio
         );
-        assert!(report.score < 35.0, "impostor score too high: {}", report.score);
+        assert!(
+            report.score < 35.0,
+            "impostor score too high: {}",
+            report.score
+        );
     }
 
     #[test]

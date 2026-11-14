@@ -130,8 +130,7 @@ pub fn evaluate_quality(frame: &RawFrame) -> QualityReport {
         (c, s)
     } else {
         let c = active_blocks.iter().map(|m| m.contrast).sum::<f64>() / active_blocks.len() as f64;
-        let s =
-            active_blocks.iter().map(|m| m.sharpness).sum::<f64>() / active_blocks.len() as f64;
+        let s = active_blocks.iter().map(|m| m.sharpness).sum::<f64>() / active_blocks.len() as f64;
         (c, s)
     };
 
@@ -157,11 +156,13 @@ pub fn evaluate_quality(frame: &RawFrame) -> QualityReport {
 
     let mut warnings = Vec::new();
     if variance < MIN_MEAN_VARIANCE || ridge_contrast < MIN_RIDGE_CONTRAST {
-        warnings.push("low local contrast or dry ridge pattern; recapture with better contact".into());
+        warnings
+            .push("low local contrast or dry ridge pattern; recapture with better contact".into());
     }
     if saturated > MAX_SATURATED_RATIO {
-        warnings
-            .push("excessive saturation; image possibly too wet, washed out, or uneven contact".into());
+        warnings.push(
+            "excessive saturation; image possibly too wet, washed out, or uneven contact".into(),
+        );
     }
     if usable_area_ratio < MIN_USABLE_AREA_RATIO {
         warnings.push("partial finger contact area; center finger firmly and recapture".into());
@@ -202,9 +203,9 @@ pub fn evaluate_presence(frame: &RawFrame) -> FingerPresence {
     let is_present = quality.mean_local_variance >= 40.0
         && quality.saturated_ratio < 0.40
         && quality.usable_area_ratio >= 0.15;
-    let contact_ratio =
-        ((quality.mean_local_variance / 200.0).min(1.0) * 0.6 + quality.usable_area_ratio * 0.4)
-            .clamp(0.0, 1.0);
+    let contact_ratio = ((quality.mean_local_variance / 200.0).min(1.0) * 0.6
+        + quality.usable_area_ratio * 0.4)
+        .clamp(0.0, 1.0);
     FingerPresence {
         is_present,
         contact_ratio,
@@ -270,11 +271,8 @@ mod tests {
         let mut partial_pixels = vec![240u8; FRAME_LEN];
         for y in 16..64 {
             for x in 16..64 {
-                partial_pixels[y * WIDTH as usize + x] = if (x / 4).is_multiple_of(2) {
-                    40
-                } else {
-                    200
-                };
+                partial_pixels[y * WIDTH as usize + x] =
+                    if (x / 4).is_multiple_of(2) { 40 } else { 200 };
             }
         }
         let partial = RawFrame::new(partial_pixels).unwrap();

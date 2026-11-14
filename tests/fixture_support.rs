@@ -43,8 +43,7 @@ pub fn synthetic(seed_offset: f32, dx_shift: f32, dy_shift: f32, noisy: bool) ->
             if r2 > 0.95 {
                 continue;
             }
-            let mut phase = (lx * 0.74 + ly * 0.26 + seed_offset) * 1.0
-                + 2.2 * (dx * dx - dy * dy);
+            let mut phase = (lx * 0.74 + ly * 0.26 + seed_offset) * 1.0 + 2.2 * (dx * dx - dy * dy);
             for &(px, py, sign) in &dislocations {
                 let vx = lx - (px + seed_offset * 1.7);
                 let vy = ly - (py + seed_offset * 0.9);
