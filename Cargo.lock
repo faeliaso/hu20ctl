@@ -510,7 +510,7 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "hu20-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -528,7 +528,7 @@ dependencies = [
 
 [[package]]
 name = "hu20-core"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "base64",
  "blake3",
@@ -551,7 +551,7 @@ dependencies = [
 
 [[package]]
 name = "hu20-driver"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "clap",
  "hu20-core",
