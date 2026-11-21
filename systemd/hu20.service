@@ -5,7 +5,7 @@ After=hu20.socket
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/hu20ctl daemon --socket /run/hu20/hu20.sock
+ExecStart=/usr/bin/hu20ctl serve --socket-path /run/hu20/hu20.sock
 Restart=on-failure
 RestartSec=3
 User=root

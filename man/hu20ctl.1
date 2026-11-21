@@ -1,4 +1,4 @@
-.TH HU20CTL 1 "November 2026" "hu20ctl 0.2.0" "User Commands"
+.TH HU20CTL 1 "November 2026" "hu20ctl 0.4.0" "User Commands"
 .SH NAME
 hu20ctl \- technical control CLI and capture daemon for SecuGen Hamster Pro 20 (HU20)
 .SH SYNOPSIS
@@ -43,3 +43,19 @@ Override the Unix Domain Socket path (default: \fI/run/hu20/hu20.sock\fR on Linu
 .SH SEE ALSO
 .BR udev (7),
 .BR systemd (1)
+
+.SH CONFIGURATION
+Use config init to create a private TOML configuration without overwriting files.
+Linux uses $XDG_CONFIG_HOME/hu20ctl/config.toml (absolute paths only), falling back
+to $HOME/.config/hu20ctl/config.toml. macOS uses
+$HOME/Library/Application Support/hu20ctl/config.toml.
+.PP
+--config PATH selects a file; --no-config disables loading. Explicit CLI arguments
+override supported environment variables, file values, then built-in defaults.
+config path, config show, and config validate report paths, effective values with
+origins, and validity as JSON. schema_version must be 1; unknown keys are errors.
+.PP
+Supported sections: capture (timeout_secs, min_quality), enroll (samples,
+timeout_secs, min_quality), verify (threshold), forensic (comparison_threshold),
+conversion (wsq_bitrate, dpi for tool convert), driver (poll_interval_ms), and
+daemon (absolute socket_path). Restart the daemon after editing configuration.
