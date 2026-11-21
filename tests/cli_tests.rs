@@ -2,7 +2,9 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 fn bin() -> Command {
-    Command::new(env!("CARGO_BIN_EXE_hu20ctl"))
+    let mut command = Command::new(env!("CARGO_BIN_EXE_hu20ctl"));
+    command.arg("--no-config");
+    command
 }
 
 fn fixture(name: &str) -> PathBuf {

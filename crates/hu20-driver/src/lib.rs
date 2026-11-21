@@ -192,13 +192,34 @@ impl<T: UsbTransport> Device<T> {
         timeout: Duration,
         min_quality: u8,
         smart: bool,
+        on_poll: F,
+    ) -> Result<RawFrame, DriverError>
+    where
+        F: FnMut(&hu20_core::FingerPresence, Duration),
+    {
+        self.wait_for_finger_with_options(
+            timeout,
+            min_quality,
+            smart,
+            WaitOptions::default(),
+            on_poll,
+        )
+    }
+
+    /// Wait using an explicit polling interval.
+    pub fn wait_for_finger_with_options<F>(
+        &mut self,
+        timeout: Duration,
+        min_quality: u8,
+        smart: bool,
+        options: WaitOptions,
         mut on_poll: F,
     ) -> Result<RawFrame, DriverError>
     where
         F: FnMut(&hu20_core::FingerPresence, Duration),
     {
         let start = Instant::now();
-        let poll_interval = Duration::from_millis(150);
+        let poll_interval = options.poll_interval;
 
         while start.elapsed() < timeout {
             let frame = self.capture_with_mode(smart)?;
@@ -208,7 +229,7 @@ impl<T: UsbTransport> Device<T> {
             if presence.is_present && presence.quality.score >= min_quality {
                 return Ok(frame);
             }
-            std::thread::sleep(poll_interval);
+            std::thread::sleep(poll_interval.min(timeout.saturating_sub(start.elapsed())));
         }
 
         Err(DriverError::Timeout(timeout))
@@ -294,6 +315,19 @@ mod tests {
         match result.unwrap_err() {
             DriverError::Timeout(_) => {}
             other => panic!("expected Timeout, got: {other:?}"),
+        }
+    }
+}
+
+/// Operational settings for finger-presence polling.
+#[derive(Clone, Copy, Debug)]
+pub struct WaitOptions {
+    pub poll_interval: Duration,
+}
+impl Default for WaitOptions {
+    fn default() -> Self {
+        Self {
+            poll_interval: Duration::from_millis(150),
         }
     }
 }

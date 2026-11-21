@@ -9,6 +9,7 @@ name = "hu20ctl"
 path = "src/main.rs"
 
 [dependencies]
+toml = "0.8"
 anyhow.workspace = true
 base64.workspace = true
 clap.workspace = true
