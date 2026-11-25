@@ -102,6 +102,21 @@ To install `hu20ctl` into Cargo's binary directory:
 cargo install --path crates/hu20-cli
 ```
 
+### Shell autocomplete
+
+Install completion for the shell you use (no scanner or administrator access required):
+
+```sh
+hu20ctl completions install zsh
+# or: hu20ctl completions install bash
+# or: hu20ctl completions install fish
+# or: hu20ctl completions install powershell
+```
+
+Open a new terminal after installation. The command creates missing user configuration
+directories and can be run again safely. See [the manual](docs/MANUAL.md#shell-autocomplete)
+for the files and shell startup behavior.
+
 ## Quick Start
 
 1. Check connected scanners and system readiness:
@@ -259,22 +274,6 @@ Read [TESTING.md](TESTING.md) before running physical tests. The script writes c
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution rules and engineering standards. |
 | [SECURITY.md](SECURITY.md) | Security, privacy, and vulnerability-reporting policy. |
 
-## Contributing
-
-Contributions are welcome. Keep changes focused, add deterministic tests for new behavior, and run the relevant checks before opening a pull request. Never commit real biometric data, custody manifests, or captures.
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete contribution process and workspace rules.
-
-## Support
-
-For questions, bug reports, or feature requests, open an issue in the repository. For a vulnerability or suspected biometric-data exposure, follow the private reporting process in [SECURITY.md](SECURITY.md).
-
-## License
-
-Licensed under the [MIT License](LICENSE).
-
-Distributed artifacts also include [third-party notices](THIRD_PARTY_NOTICES.md). See the `libusb` note there before redistributing an artifact that statically links the vendored USB library.
-
 ## Persistent user configuration
 
 Run `hu20ctl config init` to create a commented TOML file without overwriting an
@@ -333,3 +332,19 @@ ExecStart=/usr/bin/hu20ctl --config /etc/hu20ctl/config.toml serve --socket-path
 
 Sensor exposure/gain, algorithm tuning, profiles, automatic reload, and USB
 transport timeouts are not configured by this first version.
+
+## Contributing
+
+Contributions are welcome. Keep changes focused, add deterministic tests for new behavior, and run the relevant checks before opening a pull request. Never commit real biometric data, custody manifests, or captures.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete contribution process and workspace rules.
+
+## Support
+
+For questions, bug reports, or feature requests, open an issue in the repository. For a vulnerability or suspected biometric-data exposure, follow the private reporting process in [SECURITY.md](SECURITY.md).
+
+## License
+
+Licensed under the [MIT License](LICENSE).
+
+Distributed artifacts also include [third-party notices](THIRD_PARTY_NOTICES.md). See the `libusb` note there before redistributing an artifact that statically links the vendored USB library.

@@ -10,9 +10,9 @@ path = "src/main.rs"
 
 [dependencies]
 toml = "0.8"
-anyhow.workspace = true
 base64.workspace = true
 clap.workspace = true
+clap_complete.workspace = true
 hu20-core = { path = "../hu20-core" }
 hu20-driver = { path = "../hu20-driver" }
 serde.workspace = true
