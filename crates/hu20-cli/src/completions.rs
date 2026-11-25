@@ -118,7 +118,7 @@ pub fn install(shell: CompletionShell, format: OutputFormat) -> Result<(), CliEr
             append_once(
                 &profile,
                 "# hu20ctl completion",
-                ". '$HOME/.config/hu20ctl/completions/hu20ctl.ps1' # hu20ctl completion\n",
+                ". \"$HOME/.config/hu20ctl/completions/hu20ctl.ps1\" # hu20ctl completion\n",
             )?;
             script
         }
