@@ -94,6 +94,24 @@ hu20ctl manual
 
 ## Global Options
 
+### Shell autocomplete
+
+Run `hu20ctl completions install <shell>` with `bash`, `zsh`, `fish`, or
+`powershell`, then open a new terminal. Installation is per user, needs no
+scanner or administrator privileges, creates missing directories, and is safe
+to repeat. It does not load completion into an already running shell.
+
+| Shell | Generated file | Startup integration |
+|---|---|---|
+| Bash | `~/.local/share/hu20ctl/completions/hu20ctl.bash` | Adds a `source` line to `~/.bashrc`. |
+| Zsh | `~/.zfunc/_hu20ctl` | Adds `~/.zfunc` to `fpath` in `~/.zshrc` before `compinit`; initializes `compinit` if absent. |
+| Fish | `$XDG_CONFIG_HOME/fish/completions/hu20ctl.fish` or `~/.config/fish/completions/hu20ctl.fish` | Fish loads it from its completion directory. |
+| PowerShell | `~/.config/hu20ctl/completions/hu20ctl.ps1` | Adds a load line to the current user's PowerShell profile. |
+
+The command updates only the selected shell. If a profile cannot be read or
+written, it reports an error. Re-running refreshes the generated script without
+adding another startup line.
+
 | Option | Description |
 |---|---|
 | `--format <text\|json\|raw>` | Global output format mode: human-readable `text`, structured `json`, or pure `raw` byte stream. Default: `text`. |

@@ -1,4 +1,4 @@
-.TH HU20CTL 1 "November 2026" "hu20ctl 0.4.0" "User Commands"
+.TH HU20CTL 1 "November 2026" "hu20ctl 0.5.0" "User Commands"
 .SH NAME
 hu20ctl \- technical control CLI and capture daemon for SecuGen Hamster Pro 20 (HU20)
 .SH SYNOPSIS
@@ -12,6 +12,10 @@ is a pure-Rust command-line tool and background daemon for technical and forensi
 operations on the SecuGen Hamster Pro 20 (HU20) optical fingerprint scanner
 (USB 1162:2200, 300x400 L8 @ 500 DPI, 120,000 bytes).
 .SH COMMANDS
+.TP
+.B completions install bash|zsh|fish|powershell
+Install shell completion for the current user. Creates needed directories and
+updates the selected shell's startup configuration. Open a new terminal to use it.
 .TP
 .B doctor
 Run hardware, udev, permission, and daemon diagnostics.

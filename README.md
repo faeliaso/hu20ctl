@@ -102,6 +102,21 @@ To install `hu20ctl` into Cargo's binary directory:
 cargo install --path crates/hu20-cli
 ```
 
+### Shell autocomplete
+
+Install completion for the shell you use (no scanner or administrator access required):
+
+```sh
+hu20ctl completions install zsh
+# or: hu20ctl completions install bash
+# or: hu20ctl completions install fish
+# or: hu20ctl completions install powershell
+```
+
+Open a new terminal after installation. The command creates missing user configuration
+directories and can be run again safely. See [the manual](docs/MANUAL.md#shell-autocomplete)
+for the files and shell startup behavior.
+
 ## Quick Start
 
 1. Check connected scanners and system readiness:

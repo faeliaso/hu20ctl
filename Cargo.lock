@@ -77,12 +77,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "anyhow"
-version = "1.0.104"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470"
-
-[[package]]
 name = "arrayvec"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -268,6 +262,15 @@ dependencies = [
  "anstyle",
  "clap_lex",
  "strsim",
+]
+
+[[package]]
+name = "clap_complete"
+version = "4.6.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6a35200383f20018d41c14d1ab19c1727c697f544492143f7d93aa39f0187848"
+dependencies = [
+ "clap",
 ]
 
 [[package]]
@@ -510,11 +513,11 @@ checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
 
 [[package]]
 name = "hu20-cli"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
- "anyhow",
  "base64",
  "clap",
+ "clap_complete",
  "hu20-core",
  "hu20-driver",
  "serde",
@@ -529,7 +532,7 @@ dependencies = [
 
 [[package]]
 name = "hu20-core"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "base64",
  "blake3",
@@ -552,7 +555,7 @@ dependencies = [
 
 [[package]]
 name = "hu20-driver"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "clap",
  "hu20-core",

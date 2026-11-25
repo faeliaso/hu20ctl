@@ -34,6 +34,86 @@ fn test_cli_help() {
 }
 
 #[test]
+fn test_cli_completions_install_is_idempotent() {
+    for (shell, relative, profile) in [
+        (
+            "bash",
+            ".local/share/hu20ctl/completions/hu20ctl.bash",
+            Some(".bashrc"),
+        ),
+        ("zsh", ".zfunc/_hu20ctl", Some(".zshrc")),
+        ("fish", ".config/fish/completions/hu20ctl.fish", None),
+        (
+            "powershell",
+            ".config/hu20ctl/completions/hu20ctl.ps1",
+            Some(".config/powershell/Microsoft.PowerShell_profile.ps1"),
+        ),
+    ] {
+        let temp = tempfile::tempdir().unwrap();
+        for _ in 0..2 {
+            let output = bin()
+                .args(["completions", "install", shell])
+                .env("HOME", temp.path())
+                .env_remove("XDG_CONFIG_HOME")
+                .output()
+                .unwrap();
+            assert!(output.status.success(), "{shell}: {output:?}");
+        }
+        let script = std::fs::read_to_string(temp.path().join(relative)).unwrap();
+        assert!(script.contains("hu20ctl"), "{shell}");
+        if let Some(profile) = profile {
+            let content = std::fs::read_to_string(temp.path().join(profile)).unwrap();
+            assert_eq!(
+                content.matches("# hu20ctl completion").count(),
+                1,
+                "{shell}"
+            );
+        }
+    }
+}
+
+#[test]
+fn test_cli_zsh_completion_precedes_compinit() {
+    let temp = tempfile::tempdir().unwrap();
+    std::fs::write(
+        temp.path().join(".zshrc"),
+        "export TEST=1\nautoload -Uz compinit\ncompinit\n",
+    )
+    .unwrap();
+    let output = bin()
+        .args(["completions", "install", "zsh"])
+        .env("HOME", temp.path())
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let content = std::fs::read_to_string(temp.path().join(".zshrc")).unwrap();
+    assert!(content.find("fpath=").unwrap() < content.find("compinit").unwrap());
+    assert!(content.contains("export TEST=1"));
+}
+
+#[test]
+fn test_cli_completions_install_json_skips_config() {
+    let temp = tempfile::tempdir().unwrap();
+    let output = Command::new(env!("CARGO_BIN_EXE_hu20ctl"))
+        .args([
+            "--json",
+            "--config",
+            "/nonexistent/hu20ctl.toml",
+            "completions",
+            "install",
+            "fish",
+        ])
+        .env("HOME", temp.path())
+        .env_remove("XDG_CONFIG_HOME")
+        .output()
+        .unwrap();
+    assert!(output.status.success(), "{output:?}");
+    let value: serde_json::Value = serde_json::from_slice(&output.stdout).unwrap();
+    assert_eq!(value["status"], "installed");
+    assert_eq!(value["shell"], "fish");
+}
+
+#[test]
 fn test_cli_version() {
     let output_long = bin().arg("--version").output().expect("failed to execute");
     assert!(output_long.status.success());
