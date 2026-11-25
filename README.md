@@ -259,21 +259,6 @@ All automated tests use deterministic synthetic fixtures and do not require a sc
 
 Read [TESTING.md](TESTING.md) before running physical tests. The script writes captures to a temporary directory and those artifacts must be protected and safely deleted.
 
-## Documentation
-
-| Document | Contents |
-| --- | --- |
-| [docs/MANUAL.md](docs/MANUAL.md) | Command reference, options, formats, manifests, and exit codes. |
-| [docs/BIOMETRIC_ENGINE.md](docs/BIOMETRIC_ENGINE.md) | Pure-Rust biometric pipeline, Gabor enhancement, 360° alignment, and ZeroFMR gates. |
-| [TESTING.md](TESTING.md) | Hardware-free tests, physical scanner testing, and authorized dataset validation. |
-| [docs/NFIQ2_INTEGRATION.md](docs/NFIQ2_INTEGRATION.md) | Integration guide for NIST NFIQ 2. |
-| [docs/FORENSIC_BIOMETRIC_VALIDATION.md](docs/FORENSIC_BIOMETRIC_VALIDATION.md) | Procedure for authorized biometric validation. |
-| [docs/FUZZING.md](docs/FUZZING.md) | Fuzz-testing setup and commands. |
-| [docs/RELEASING.md](docs/RELEASING.md) | Release checklist and packaging guide. |
-| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Third-party component and license notices. |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution rules and engineering standards. |
-| [SECURITY.md](SECURITY.md) | Security, privacy, and vulnerability-reporting policy. |
-
 ## Persistent user configuration
 
 Run `hu20ctl config init` to create a commented TOML file without overwriting an
@@ -332,6 +317,21 @@ ExecStart=/usr/bin/hu20ctl --config /etc/hu20ctl/config.toml serve --socket-path
 
 Sensor exposure/gain, algorithm tuning, profiles, automatic reload, and USB
 transport timeouts are not configured by this first version.
+
+## Documentation
+
+| Document | Contents |
+| --- | --- |
+| [docs/MANUAL.md](docs/MANUAL.md) | Command reference, options, formats, manifests, and exit codes. |
+| [docs/BIOMETRIC_ENGINE.md](docs/BIOMETRIC_ENGINE.md) | Pure-Rust biometric pipeline, Gabor enhancement, 360° alignment, and ZeroFMR gates. |
+| [TESTING.md](TESTING.md) | Hardware-free tests, physical scanner testing, and authorized dataset validation. |
+| [docs/NFIQ2_INTEGRATION.md](docs/NFIQ2_INTEGRATION.md) | Integration guide for NIST NFIQ 2. |
+| [docs/FORENSIC_BIOMETRIC_VALIDATION.md](docs/FORENSIC_BIOMETRIC_VALIDATION.md) | Procedure for authorized biometric validation. |
+| [docs/FUZZING.md](docs/FUZZING.md) | Fuzz-testing setup and commands. |
+| [docs/RELEASING.md](docs/RELEASING.md) | Release checklist and packaging guide. |
+| [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) | Third-party component and license notices. |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution rules and engineering standards. |
+| [SECURITY.md](SECURITY.md) | Security, privacy, and vulnerability-reporting policy. |
 
 ## Contributing
 
