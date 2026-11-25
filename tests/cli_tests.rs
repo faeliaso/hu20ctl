@@ -68,6 +68,9 @@ fn test_cli_completions_install_is_idempotent() {
                 1,
                 "{shell}"
             );
+            if shell == "powershell" {
+                assert!(content.contains(". \"$HOME/.config/hu20ctl/completions/hu20ctl.ps1\""));
+            }
         }
     }
 }
